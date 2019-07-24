@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "cJSON.h"
+#include "stddef.h"
+#include <time.h>
+#include "curl.h"
+
+int main(void)
+{
+
+     time_t timep;
+     time(&timep);
+
+     cJSON *root;
+     cJSON *rfid_dev = cJSON_CreateObject();
+
+     root = cJSON_CreateObject();
+
+     cJSON_AddItemToObject(root, "rfid_dev", rfid_dev);
+     cJSON_AddNumberToObject(rfid_dev, "node_device_number", 1);
+     cJSON_AddStringToObject(rfid_dev, "node_device_mac", "123");
+     cJSON_AddNumberToObject(rfid_dev, "number", 1);
+     cJSON_AddStringToObject(rfid_dev, "rec_time", asctime(gmtime(&timep)));
+     cJSON_AddStringToObject(rfid_dev, "position", "position");
+     char *out = cJSON_Print(root);
+     printf("%s\n", out);
+
+      CURL *curl;
+      curl_easy_init();
+      printf("test \r\n");
+     while (1)
+     {
+          printf("---->>test code \r\n");
+          sleep(1);
+     }
+
+     return 0;
+}
